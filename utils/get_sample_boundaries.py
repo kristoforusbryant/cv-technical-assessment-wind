@@ -53,7 +53,7 @@ def get_boundary(img):
     ax.hist(img_orig[idx, 2], alpha=.5, color='blue', density=True, bins=250)
     ax.set_xlim(0, 255)
 
-    ax.set_title(f"Color Histogram of Sample in ", fontsize=20)
+    ax.set_title(f"Color Histogram", fontsize=20)
     ax.set_ylabel("Density", fontsize=18)
     ax.set_xlabel("Channel Values", fontsize=18)
 

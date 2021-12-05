@@ -17,8 +17,8 @@ def place_squares(img):
     scale = 16
     dim = (int(img.shape[1] // scale), int(img.shape[0] // scale))
     img = cv.resize(img, dim, interpolation=cv.INTER_AREA)
-    gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    gray_edge = cv.Canny(gray, 20, 5)
+    b, _, _ = cv.split(img)
+    blue_edge = cv.Canny(b, 20, 5)
 
     hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
     _, s, _ = cv.split(hsv)
@@ -33,7 +33,7 @@ def place_squares(img):
 
     for i, j in idxes:
         if (i, j) in [(1, 1), (2, 1)]:
-            edge = gray_edge
+            edge = blue_edge
         else:
             edge = s_edge
         subset = edge[i*gs:(i+1)*gs, j*gs:(j+1)*gs + 10].copy()
@@ -47,8 +47,6 @@ def place_squares(img):
         # Drawing rectangles
         cv.rectangle(img_orig, ((gs * j + x) * scale, (gs * i + y) * scale),
                             ((gs * j + x + w) * scale, (gs * i + y + h) * scale), (0, 255, 0), 20)
-
-
 
     return img_orig
 
